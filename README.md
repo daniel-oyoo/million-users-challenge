@@ -8,6 +8,9 @@ I benchmarked C#, Node, Java, Rust, Python and Go, each with its most common fra
 **Now it's your turn: implement the same API in any language and framework, make it as fast as you can, and I'll
 benchmark it on the same boxes: how many users it holds on 16 cores, on 8 and on 4.**
 
+> **The challenge is closed.** New submissions are no longer benchmarked. Pull requests that were already open are
+> being benchmarked now, and the leaderboard stays up with every result.
+
 The boxes are [Synteq](https://synteq.com/arjay) VPSs. To test on the same hardware, sign up through
 [synteq.com/arjay](https://synteq.com/arjay) and you get **$20 of free credit**.
 
@@ -87,6 +90,8 @@ To load test it yourself, see [`bench/README.md`](bench/README.md#load-test-your
 
 ## Submitting
 
+New submissions are no longer benchmarked. You can still open a pull request, but it won't be run.
+
 Open a pull request that adds one folder, `submissions/<language>-<framework>-<github-username>/`, containing:
 
 | File | What it does |
@@ -118,7 +123,10 @@ Every run starts your server fresh on a fresh copy of the database. A run passes
 1 s and under 1% errors.
 
 **You get three scores: the most users held for 5 minutes on 16 cores, on 8 cores and on 4 cores.** On 8 and 4 cores
-your server, the kernel's network processing and all, gets only those cores. The leaderboard ranks by 16 cores.
+your server, the kernel's network processing and all, gets only those cores. The leaderboard ranks by 4 cores; entries
+within 5% of each other share a rank. Entries within 5% of the best 4-core score are scored as the median of 3 runs
+on 8 and on 4 cores, and are also run on 2 cores: among them, the 2-core score sets the order (within 5% still shares
+a rank).
 
 **16 cores is capped at 1,000,000 users**: past that, the one Postgres box (not your server) becomes the limit, so
 holding a million on 16 cores is the top 16-core score, shown as `1,000,000 (max)`. **8 and 4 cores are searched up to
